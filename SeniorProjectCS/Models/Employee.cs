@@ -10,7 +10,7 @@ namespace SeniorProjectCS.Models
     {
 
         public int Id { get; set; }
-        [Required(ErrorMessage = "Username is required")]
+        [Required(ErrorMessage = "Username is required!")]
         [StringLength(50)]
         public String Username { get; set; }
         [Required(ErrorMessage = "Email is required")]
