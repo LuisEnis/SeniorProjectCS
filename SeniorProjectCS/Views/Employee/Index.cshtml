@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SeniorProjectCS.Models.Employee>
+
+@{
+    ViewBag.Title = "Employees";
+    if ((String)Session["Role"] != "Admin")
+    {
+        Response.Redirect("~/Employee/Login", false);
+    }
+}
+
+<h2>Employees</h2>
+
+<p>
+    @Html.ActionLink("Register new employee", "RegisterNewEmployee")
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

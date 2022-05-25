@@ -1,0 +1,78 @@
+﻿@model IEnumerable<SeniorProjectCS.Models.Product>
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<h2>Products:</h2>
+@using (Html.BeginForm("Index", "Product", FormMethod.Get))
+{
+<p>
+    @Html.DisplayName("Name:")
+    @Html.TextBox("searched")
+    @Html.DisplayName("Max Price:")
+    @Html.TextBox("searched2", "", new { @type = "number" })
+    @Html.Hidden("catId")<input type="submit" value="Search" />
+</p>
+}
+
+@if (Session["Username"] != null && (String)Session["Role"] != "Salesperson")
+{
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+}
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @if (item.Description.StartsWith("https://"))
+                {
+                    <a href="@Html.DisplayFor(modelItem => item.Description)"> View Details </a>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Description)
+                }
+            </td>
+            @if (Session["Username"] != null)
+            {
+                <td>
+                    @if ((String)Session["Role"] != "Salesperson")
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                        @Html.Label(" | ")
+                    }
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            }
+        </tr>
+    }
+
+</table>

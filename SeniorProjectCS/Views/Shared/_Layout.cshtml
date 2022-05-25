@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Luis Electronics</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+</head>
+<body background="~/Images/backimg1.jpg" background-repeat="no repeat">
+    <div class="navbar navbar-inverse fixed-top bg-dark navbar-dark">
+        <div class="container">
+            <div class="navbar-header">
+                <label style="font-size:x-large">Luis Electronics</label>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button">Categories</button>
+                    <div class="dropdown-menu" aria-labelledby="ddMB">
+                        @Html.ActionLink("See Categories", "Index", "Category", new { area = "" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Create new Category", "Create", "Category", new { area = "" }, new { @class = "dropdown-item" })
+
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button">Products</button>
+                    <div class="dropdown-menu" aria-labelledby="ddMB">
+                        @Html.ActionLink("See Products", "Index", "Product", new { area = "" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Create new Product", "Create", "Product", new { area = "" }, new { @class = "dropdown-item" })
+
+                    </div>
+                </div>
+
+                @if (Session["Username"] == null)
+                {
+                    @Html.ActionLink("Login", "Login", "Employee", new { area = "" }, new { @class = "navbar-brand" })
+                }
+                @if (Session["Username"] != null)
+                {
+                    if ((String)Session["Role"] == "Admin")
+                    {
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button">Employees</button>
+                            <div class="dropdown-menu" aria-labelledby="ddMB">
+                                @Html.ActionLink("Show all employees", "Index", "Employee", new { area = "" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Register new Employee", "RegisterNewEmployee", "Employee", new { area = "" }, new { @class = "dropdown-item" })
+                            </div>
+                        </div>
+                    }
+                    @Html.ActionLink("Logout", "Logout", "Employee", new { area = "" }, new { @class = "navbar-brand" })
+                }
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <h1 class="text-center">
+        <img src="~/Images/logo2_copie_t.png" height="300" />
+    </h1>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Luis Electronics</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
+
+<style>
+    body {
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        color: lawngreen;
+    }
+    table {
+        background: white;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown {
+        display: inline;
+        position: relative;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+
+    .dropdown-toggle {
+        margin-left: 30px;
+    }
+
+    .navbar-brand {
+        margin-left: 30px;
+    }
+</style>
